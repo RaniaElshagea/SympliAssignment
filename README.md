@@ -6,11 +6,11 @@ DI
 Unit testing
 
 For future development
-Extensive Error handling and Proper Logging
-Front end
+Extensive Error handling, Proper Logging and more test coverage
+Front end error handling is not complete
 
 Performance, availbility and reliability: 
-use google api search endpoints
+use google api search endpoints to avoid running into 429 issues (too many requests)
 use google api search endpoints instead of scrapping by tag names that can change anytime
 add more unit tests to google apis when in place.
 Not to allow only string for URL, instead provide search engines options and empty string in case new engines are to implement.
