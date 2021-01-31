@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sympli.Application\Sympli.Application.csproj" />
+    <ProjectReference Include="..\Sympli.Common\Sympli.Common.csproj" />
+  </ItemGroup>
+
 </Project>
