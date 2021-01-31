@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -32,6 +33,31 @@ namespace Sympli.Services.Test
         {
             var result = await service.ScrapSearchEngine(searchInput);
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void SiteOccurencesShouldReturnOccurencesWithValidInput()
+        {
+            var searchResults = new List<SearchResult>();
+            searchResults.Add(new SearchResult()
+            {
+                Occurence = 1,
+                ResultingURLSearchOutput = "www.sympli.com"
+            });
+            searchResults.Add(new SearchResult()
+            {
+                Occurence = 2,
+                ResultingURLSearchOutput = "www.pexa.com"
+            });
+            searchResults.Add(new SearchResult()
+            {
+                Occurence = 3,
+                ResultingURLSearchOutput = "www.sympli.com"
+            });
+
+            var result = service.SiteOccurences(searchResults, searchInput.SiteName);
+            Assert.IsNotNull(result.Occurences);
+            Assert.AreEqual(result.OccurencesResult, "1,3");
         }
     }
 }
