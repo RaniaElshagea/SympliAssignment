@@ -91,7 +91,7 @@ export class SearchSiteOccurences extends Component {
           </tr>
           <tr>
             <td>Enter Engine Url</td>
-            <td><input id="url" type="url" required pattern="https://.*" placeholder="https://www.example.com" value={this.inputEngineUrlValue} onChange={this.updateEngineUrlValue}/></td>
+            <td><input id="url" type="text" required placeholder="google.com.au" value={this.inputEngineUrlValue} onChange={this.updateEngineUrlValue}/></td>
           </tr>
           <tr>
             <td>Enter Site Name</td>

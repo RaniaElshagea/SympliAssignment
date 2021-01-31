@@ -11,7 +11,7 @@ namespace Sympli.InfrastructureSearchEngines
 
         public ISearchEngine Create(string engineName)
         {
-            return searchEngines.Single(s => s.WhichEngineToHandle(engineName));
+            return searchEngines.SingleOrDefault(s => s.WhichEngineToHandle(engineName));
         }
 
         private IEnumerable<ISearchEngine> GetSearchEngines()

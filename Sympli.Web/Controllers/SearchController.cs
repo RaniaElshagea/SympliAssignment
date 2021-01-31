@@ -31,10 +31,10 @@ namespace Sympli.Web.Controllers
                 }
                 return BadRequest(searchInput.GetValidationMessages());
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 // ILogger could be used or any other custom or 3d type validation
-                throw;
+                return BadRequest(ex.Message);
             }
         }
     }

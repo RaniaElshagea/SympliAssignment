@@ -7,7 +7,7 @@ namespace Sympli.InfrastructureSearchEngines
 {
     public class BingSearchEngine : ISearchEngine
     {
-        public string URLBuilder(string url, string keywords, int? numberOfResults = 100)
+        public string URLBuilder(string keywords, int? numberOfResults = 100)
         {
             throw new NotImplementedException();
         }

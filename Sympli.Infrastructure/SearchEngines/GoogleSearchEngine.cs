@@ -10,9 +10,9 @@ namespace Sympli.InfrastructureSearchEngines
     {
         private string _urlBuilder;
 
-        public string URLBuilder(string url, string keywords, int? numberOfResults = 100)
+        public string URLBuilder(string keywords, int? numberOfResults = 100)
         {
-            _urlBuilder = string.Format("{0}/search?q={1}&num={2}", url, keywords, numberOfResults);
+            _urlBuilder = string.Format("https://www.google.com.au/search?q={0}&num={1}", keywords, numberOfResults);
             return _urlBuilder;
         }
 

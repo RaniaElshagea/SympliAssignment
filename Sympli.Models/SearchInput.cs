@@ -15,8 +15,6 @@ namespace Sympli.Models
         /// URL to search in
         /// </summary>
         [Required]
-        [RegularExpression(@"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$",
-            ErrorMessage = "URL not in a correct format")]
         public string URL { get; set; }
         
         /// <summary>

@@ -12,7 +12,7 @@ namespace Sympli.Application.Contracts
         /// <param name="keywords">keywords</param>
         /// <param name="numberOfResults">number of results</param>
         /// <returns>url search string</returns>
-        string URLBuilder(string url, string keywords, int? numberOfResults);
+        string URLBuilder(string keywords, int? numberOfResults);
 
         /// <summary>
         /// Retrieves the search results in an Html string

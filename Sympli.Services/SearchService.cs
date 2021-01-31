@@ -29,7 +29,7 @@ namespace Sympli.Services
                 {
                     using (var httpClient = new HttpClient())
                     {
-                        var siteUrl = searchEngine.URLBuilder(searchInput.URL, searchInput.Keywords, searchInput.NumberOfResults);
+                        var siteUrl = searchEngine.URLBuilder(searchInput.Keywords, searchInput.NumberOfResults);
                         html = await httpClient.GetStringAsync(siteUrl);
                     }
                 }
