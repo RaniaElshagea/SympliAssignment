@@ -4,7 +4,7 @@ using Sympli.Application.Contracts;
 
 namespace Sympli.InfrastructureSearchEngines
 {
-    public class SearchEngineFactory
+    public class SearchEngineFactory: ISearchEngineFactory
     {
         private IList<ISearchEngine> _searchEngines = new List<ISearchEngine>();
         public SearchEngineFactory()//ISearchEngine[] searchEngines

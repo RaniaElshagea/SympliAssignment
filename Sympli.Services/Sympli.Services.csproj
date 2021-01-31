@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sympli.Application\Sympli.Application.csproj" />
+    <ProjectReference Include="..\Sympli.Infrastructure\Sympli.Infrastructure.csproj" />
     <ProjectReference Include="..\Sympli.Models\Sympli.Models.csproj" />
   </ItemGroup>
 
