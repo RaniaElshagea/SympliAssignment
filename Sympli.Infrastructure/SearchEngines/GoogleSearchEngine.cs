@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Sympli.Application.Contracts;
-using Sympli.Common.Extensions;
 using Sympli.Models;
 
 namespace Sympli.InfrastructureSearchEngines
@@ -13,7 +12,7 @@ namespace Sympli.InfrastructureSearchEngines
 
         public string URLBuilder(string url, string keywords, int? numberOfResults = 100)
         {
-            _urlBuilder = string.Format("{0}/search?q={1}&num={2}", url, keywords.ToUrlCompatible(), numberOfResults);
+            _urlBuilder = string.Format("{0}/search?q={1}&num={2}", url, keywords, numberOfResults);
             return _urlBuilder;
         }
 
@@ -43,6 +42,8 @@ namespace Sympli.InfrastructureSearchEngines
             }
             catch (Exception ex)
             {
+                // ILogger could be used or any other custom or 3d type validation
+                throw ex;
             }
             return foundSearchResults;
         }

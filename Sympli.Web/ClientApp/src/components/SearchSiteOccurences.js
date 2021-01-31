@@ -75,7 +75,7 @@ export class SearchSiteOccurences extends Component {
     return (
       <div>
         <h1>Search Site Occurences</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <p>This component to retirve number of occurences of a site name when searching for certain keywords in a search engine.</p>
         {this.state.loading && <p><em>Loading...</em></p>}
         {!this.state.loading &&
         <table className='table'>

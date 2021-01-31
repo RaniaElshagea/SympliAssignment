@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Sympli.Application.Contracts;
+using Sympli.Common.Exceptions;
 using Sympli.Models;
 
 namespace Sympli.Services
@@ -24,10 +25,17 @@ namespace Sympli.Services
             var searchEngine = _searchEngineFactory.Create(searchInput.URL);
             if (searchEngine != null)
             {
-                using (var httpClient = new HttpClient())
+                try
                 {
-                    var siteUrl = searchEngine.URLBuilder(searchInput.URL, searchInput.Keywords, searchInput.NumberOfResults);
-                    html = await httpClient.GetStringAsync(siteUrl);
+                    using (var httpClient = new HttpClient())
+                    {
+                        var siteUrl = searchEngine.URLBuilder(searchInput.URL, searchInput.Keywords, searchInput.NumberOfResults);
+                        html = await httpClient.GetStringAsync(siteUrl);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlReaderException("Error happened while reading HTML, check internet connection", ex);
                 }
                 var foundSearchResults = searchEngine.GetSearchResults(html);
                 return foundSearchResults;
@@ -41,7 +49,7 @@ namespace Sympli.Services
                             .Select(x => x.Occurence).ToArray();
             var outputResults = new SearchOutputResults()
             {
-                Occurences = occurences
+                Occurences = occurences.Any()? occurences: new int[] {0}
             };
             return outputResults;
         }

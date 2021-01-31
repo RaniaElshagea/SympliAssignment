@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Sympli.Common.Validations;
 
 namespace Sympli.Models
 {
-    public class SearchInput
+    public class SearchInput: ValidatingObject
     {
         /// <summary>
         /// string of Keywords to search for
