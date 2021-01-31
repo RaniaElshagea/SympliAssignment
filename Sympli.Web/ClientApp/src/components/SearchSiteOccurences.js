@@ -5,10 +5,38 @@ export class SearchSiteOccurences extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { occurencesString: [], loading: true , inputKeywordsValue: ""};
+    this.state = { occurencesString: [], loading: false , validationMsgs: false, inputKeywordsValue:"", inputEngineUrlValue:"", inputSiteNameValue:""};
     this.handleClick = this.handleClick.bind(this);
-    this.updateinputKeywordsValue = this.updateinputKeywordsValue.bind(this);
-    
+    this.updateInputKeywordsValue = this.updateInputKeywordsValue.bind(this);
+    this.updateEngineUrlValue = this.updateEngineUrlValue.bind(this);
+    this.updateSiteNameValue = this.updateSiteNameValue.bind(this);
+  }
+
+  static renderValidationMsgsTable(validationMsgs) {
+    return (<div>{validationMsgs.validationMessages}</div>);
+  };
+
+  updateInputKeywordsValue(evt) {
+    this.setState({
+      inputKeywordsValue: evt.target.value
+    });
+  }
+
+  updateEngineUrlValue(evt) {
+    this.setState({
+      inputEngineUrlValue: evt.target.value
+    });
+  }
+
+  updateSiteNameValue(evt) {
+    this.setState({
+      inputSiteNameValue: evt.target.value
+    });
+  }
+
+  handleClick(){
+    if(!this.state.inputEngineUrlValue && !this.state.inputEngineUrlValue && !this.state.inputKeywordsValue)
+      return;
     let url = 'api/Search/SearchSiteOccurences';
     let options = {
                 method: 'POST',
@@ -17,32 +45,40 @@ export class SearchSiteOccurences extends Component {
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 body: JSON.stringify({
-                    url: "https://www.google.com",
-                    siteName: "sympli",
-                    keywords: "e-settlment",
+                    url: this.state.inputEngineUrlValue,
+                    siteName: this.state.inputSiteNameValue,
+                    keywords: this.state.inputKeywordsValue,
                 })
             };
             
     fetch(url, options)
       .then(response => {
-        if(response.ok) {return response.json()}
-        else {alert("swr"); 
-        
         const data = response.json();
+    
+        if(response.ok) 
+        {
+            return data;
+        }
         const error = (data && data.message) || response.status;
-        return Promise.reject(error);}
+        this.setState({ validationMsgs: true });
+        return Promise.reject(error);
       })
       .then(data => {
-        this.setState({ occurencesString: data, loading: false, inputKeywordsValue:"" });
+        this.setState({ occurencesString: data, loading: false, validationMsgs: false });
       })
-      .catch((error) => {
-        console.log(error)
+      .catch((status) => {
+        console.log(status)
       });
-  }
+   }
 
-  static renderSearchSiteOccurencesTable(occurencesString) {
+  render() {
     return (
-      <table className='table'>
+      <div>
+        <h1>Search Site Occurences</h1>
+        <p>This component demonstrates fetching data from the server.</p>
+        {this.state.loading && <p><em>Loading...</em></p>}
+        {!this.state.loading &&
+        <table className='table'>
         <thead>
           <tr>
             <th>Occurences</th>
@@ -50,48 +86,31 @@ export class SearchSiteOccurences extends Component {
         </thead>
         <tbody>
           <tr>
-            <td>Enter Keyworks to search for</td>
-            <td><input type="text" onChange={this.updateinputKeywordsValue}/></td>
+            <td>Enter Keywords to search for</td>
+            <td><input id="keyowrds" type="text" required placeholder="keywords" value={this.inputKeywordsValue} onChange={this.updateInputKeywordsValue}/></td>
           </tr>
           <tr>
-            <td>Enter Engine Name</td>
-            <td></td>
+            <td>Enter Engine Url</td>
+            <td><input id="url" type="url" required pattern="https://.*" placeholder="https://www.example.com" value={this.inputEngineUrlValue} onChange={this.updateEngineUrlValue}/></td>
           </tr>
           <tr>
             <td>Enter Site Name</td>
-            <td></td>
+            <td><input id="site" type="text" required placeholder="site name" value={this.inputSiteNameValue} onChange={this.updateSiteNameValue}/></td>
           </tr>
           <tr key="1">
-              <td colSpan='2'>{occurencesString.occurencesResult}</td>
+            <td>
+              Occurences
+            </td>
+              <td>{this.state.occurencesString.occurencesResult}</td>
           </tr>
-          <tr><td colSpan='2'>
-            <input type="button" value="Search" id="searchBtn" onClick={this.handleClick}/></td></tr>
+          <tr>
+            <td colSpan="2">
+              <input type="button" value="Search" id="searchBtn" onClick={this.handleClick}/>
+            </td>
+          </tr>
         </tbody>
       </table>
-    );
-  }
-
-  updateinputKeywordsValue(evt) {
-    this.setState({
-      inputKeywordsValue: evt.target.value
-    });
-  }
-
-  handleClick(){
-    alert("value of input field : "+this.state.inputKeywordsValue);
-    console.log("value of input field : "+this.state.inputKeywordsValue);
-   }
-
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : SearchSiteOccurences.renderSearchSiteOccurencesTable(this.state.occurencesString);
-
-    return (
-      <div>
-        <h1>Search Site Occurences</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
+      }
       </div>
     );
   }
